@@ -1,11 +1,11 @@
 package cis.ddbogdanov.covidtrackr;
 
+import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,9 +37,8 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         loginButton.setOnAction(e -> {
-
+            login();
         });
-
         addNewUserButton.setOnAction(e -> {
 
         });
@@ -75,6 +74,21 @@ public class LoginController implements Initializable {
     }
 
     public void login() {
-
+        try {
+            if (userRepo.findByUsername(usernameField.getText()).get(0).getPassword().equals(passwordField.getText())) {
+                System.out.println("Login Successful");
+                if(userRepo.findByUsername(usernameField.getText()).get(0).getIsAdmin()) {
+                    System.out.println("User is an admin");
+                }
+                else {
+                    System.out.println("User is not an admin");
+                }
+            } else {
+                System.out.println("Login Failed");
+            }
+        }
+        catch(IndexOutOfBoundsException ex) {
+            System.err.println("Empty result");
+        }
     }
 }
