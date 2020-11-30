@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,6 +16,7 @@ public class CovidTrackrApplication extends Application {
 
     private ConfigurableApplicationContext springContext;
     private Parent root;
+    private double xOffset, yOffset;
 
     @Override
     public void init() throws Exception {
@@ -26,9 +28,20 @@ public class CovidTrackrApplication extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
+
+        root.setOnMousePressed(pressEvent -> {
+            xOffset = pressEvent.getSceneX();
+            yOffset = pressEvent.getSceneY();
+        });
+        root.setOnMouseDragged(dragEvent -> {
+            primaryStage.setX(dragEvent.getScreenX() - xOffset);
+            primaryStage.setY(dragEvent.getScreenY() - yOffset);
+        });
+
         primaryStage.setTitle("COVID Trackr");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
     }
     @Override

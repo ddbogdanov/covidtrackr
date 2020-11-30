@@ -58,7 +58,7 @@
                         <FontAwesomeIconView fill="#007b68" glyphName="CLOSE" size="16" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="databaseButton" focusTraversable="false" layoutX="8.0" layoutY="3.0" ripplerFill="#5bddc7" text="" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="6.0">
+                  <JFXButton fx:id="dbButton" focusTraversable="false" layoutX="8.0" layoutY="3.0" ripplerFill="#5bddc7" text="" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="6.0">
                      <graphic>
                         <FontAwesomeIconView fill="#007b68" glyphName="DATABASE" selectionStart="1" size="16" />
                      </graphic>
@@ -73,7 +73,7 @@
                               <Insets top="50.0" />
                            </VBox.margin>
                         </Label>
-                        <JFXTextField focusColor="#11ab97" labelFloat="true" prefWidth="400.0" promptText="Username" style="-fx-background-color: #3e3e4a;" unFocusColor="#5d5c67" VBox.vgrow="ALWAYS">
+                        <JFXTextField fx:id="usernameField" focusColor="#11ab97" labelFloat="true" prefWidth="400.0" promptText="Username" style="-fx-background-color: #3e3e4a;" unFocusColor="#5d5c67" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets left="100.0" right="100.0" top="50.0" />
                            </VBox.margin>
@@ -81,7 +81,7 @@
                               <Font name="Roboto Regular" size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXPasswordField focusColor="#11ab97" labelFloat="true" promptText="Password" style="-fx-background-color: #3e3e4a;" unFocusColor="#5d5c67" VBox.vgrow="ALWAYS">
+                        <JFXPasswordField fx:id="passwordField" focusColor="#11ab97" labelFloat="true" promptText="Password" style="-fx-background-color: #3e3e4a;" unFocusColor="#5d5c67" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets left="100.0" right="100.0" top="15.0" />
                            </VBox.margin>
@@ -111,7 +111,7 @@
                               <Separator layoutX="10.0" layoutY="26.0" prefWidth="80.0" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="16.0" />
                            </children>
                         </AnchorPane>
-                        <JFXButton opacity="0.9" ripplerFill="#5bddc7" text="Add New User" textFill="WHITE" underline="true">
+                        <JFXButton fx:id="addNewUserButton" opacity="0.9" ripplerFill="#5bddc7" text="Add New User" textFill="WHITE" underline="true">
                            <font>
                               <Font name="Roboto Regular" size="14.0" />
                            </font>
