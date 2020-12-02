@@ -56,9 +56,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setIsadmin(boolean isadmin) { this.isadmin = isadmin; }
+    public void setIsAdmin(boolean isadmin) { this.isadmin = isadmin; }
 
     public User getObject() {
         return new User(this.id, this.username, this.password, this.isadmin);
+    }
+    public String toString() {
+        return this.id.toString() + " " + this.username + " " + this.password + " " + this.isadmin;
     }
 }
