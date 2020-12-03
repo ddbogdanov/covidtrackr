@@ -19,17 +19,17 @@
          <children>
             <AnchorPane prefHeight="40.0">
                <children>
-                  <Label fx:id="userTitle" layoutX="47.0" layoutY="12.0" text="Add a New User" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="8.0">
+                  <Label fx:id="userTitle" layoutX="47.0" layoutY="12.0" text="Add a New User" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="13.0">
                      <font>
                         <Font name="Roboto Bold" size="20.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIconView fill="#007b68" glyphName="USER" layoutX="14.0" layoutY="24.0" size="16" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="12.0" />
+                  <FontAwesomeIconView fill="#007b68" glyphName="USER" layoutX="14.0" layoutY="24.0" size="16" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="16.0" />
                </children>
             </AnchorPane>
             <Separator prefWidth="200.0" stylesheets="@static/MainCss.css">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets />
                </VBox.margin>
             </Separator>
             <JFXTextField fx:id="usernameTextField" focusColor="#11ab97" labelFloat="true" prefWidth="400.0" promptText="Username" style="-fx-background-color: #3e3e4a;" stylesheets="@static/MainCss.css" unFocusColor="#5d5c67">

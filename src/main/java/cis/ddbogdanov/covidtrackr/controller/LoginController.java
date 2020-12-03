@@ -39,6 +39,7 @@ public class LoginController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        dbButton.setDisable(true);
         loginStatus.setVisible(false);
 
         loginButton.setOnAction(e -> {

@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface UserRepo extends CrudRepository<User, UUID> {
     List<User> findByUsername(String username);
+
     @Transactional
     Long deleteByUsername(String username);
 }
