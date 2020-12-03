@@ -1,5 +1,6 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
+import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +34,12 @@ public class AddUserController implements Initializable {
     @Autowired
     private UserRepo userRepo;
 
-    @FXML
-    AnchorPane pane;
-    @FXML
-    JFXButton submitButton, closeButton;
-    @FXML
-    JFXTextField usernameTextField;
-    @FXML
-    JFXPasswordField userPasswordField, userConfirmPasswordField;
-    @FXML
-    JFXCheckBox isAdminCheck;
-    @FXML
-    Label passMatchField;
+    @FXML AnchorPane pane;
+    @FXML JFXButton submitButton, closeButton;
+    @FXML JFXTextField usernameTextField;
+    @FXML JFXPasswordField userPasswordField, userConfirmPasswordField;
+    @FXML JFXCheckBox isAdminCheck, removeUserCheck;
+    @FXML Label passMatchField, userTitle;
 
     public AddUserController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -52,9 +48,25 @@ public class AddUserController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.stage = new Stage();
-        stage.setScene(new Scene(pane));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        Scene scene = new Scene(pane);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        ResizeHelper.addResizeListener(stage);
 
         passMatchField.setVisible(false);
+
+        removeUserCheck.setOnAction(e -> {
+            if(removeUserCheck.isSelected()){
+                userTitle.setText("Remove a User");
+                isAdminCheck.setDisable(true);
+            }
+            else {
+                userTitle.setText("Add a New User");
+                isAdminCheck.setDisable(false);
+            }
+        });
 
         submitButton.setOnAction(e -> {
             submit();
@@ -68,42 +80,49 @@ public class AddUserController implements Initializable {
         String username = usernameTextField.getText();
         String password = userPasswordField.getText();
         String confirmPassword = userConfirmPasswordField.getText();
+        String fetchedPassword;
         boolean isAdmin = isAdminCheck.isSelected();
+        boolean shouldRemove = removeUserCheck.isSelected();
 
-        try {
-            //User user = userRepo.findByUsername("notadmin").get(0).getObject();
-            //System.out.println(user);
-
-            System.out.println(userRepo.findByUsername("notadmin"));
+        if(!shouldRemove) {
+            try {
+                userRepo.findByUsername(username).get(0); //If returned array is empty the username does not exist in database - Exception is thrown
+                passMatchField.setTextFill(Color.web("#F73331"));
+                passMatchField.setText("This username already exists");
+                passMatchField.setVisible(true);
+            } catch (IndexOutOfBoundsException ex) { //Catch exception and add new user
+                if (password.equals(confirmPassword)) {
+                    User user = new User(UUID.randomUUID(), username, password, isAdmin);
+                    userRepo.save(user);
+                    passMatchField.setTextFill(Color.web("#FFFFFF"));
+                    passMatchField.setText("New user added!");
+                } else {
+                    passMatchField.setTextFill(Color.web("#F73331"));
+                    passMatchField.setText("The passwords do not match");
+                }
+                passMatchField.setVisible(true);
+            }
         }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            System.out.println("username does not exist in database");
+        else {
+            try {
+                fetchedPassword = userRepo.findByUsername(username).get(0).getPassword();
+                if (password.equals(confirmPassword) && password.equals(fetchedPassword)) {
+                    userRepo.deleteByUsername(username);
+                    passMatchField.setTextFill(Color.web("#FFFFFF"));
+                    passMatchField.setText("User deleted!");
+                } else {
+                    passMatchField.setTextFill(Color.web("#F73331"));
+                    passMatchField.setText("The passwords do not match");
+                }
+                passMatchField.setVisible(true);
+            } catch (IndexOutOfBoundsException ex) {
+                passMatchField.setTextFill(Color.web("#F73331"));
+                passMatchField.setText("This username does not exist");
+                passMatchField.setVisible(true);
+            }
         }
-
     }
     public void show() {
         stage.show();
     }
 }
-
-/*
-try {
-            if (userRepo.findByUsername(username).get(0).getUsername().equals(username)) {
-                passMatchField.setTextFill(Color.web("#F73331"));
-                passMatchField.setText("This username already exists");
-                passMatchField.setVisible(true);
-            }
-        } catch (Exception ex) {
-            if (password.equals(confirmPassword)) {
-                User newUser = new User(UUID.randomUUID(), username, password, isAdmin);
-                System.out.println(newUser.toString());
-                //userRepo.save(newUser);
-            }
-            else {
-                passMatchField.setTextFill(Color.web("#F73331"));
-                passMatchField.setText("Passwords do not match");
-                passMatchField.setVisible(true);
-            }
-        }
- */

@@ -19,7 +19,7 @@
          <children>
             <AnchorPane prefHeight="40.0">
                <children>
-                  <Label layoutX="47.0" layoutY="12.0" text="Add a New User" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="8.0">
+                  <Label fx:id="userTitle" layoutX="47.0" layoutY="12.0" text="Add a New User" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="8.0">
                      <font>
                         <Font name="Roboto Bold" size="20.0" />
                      </font>
@@ -66,11 +66,19 @@
             </Label>
             <JFXCheckBox fx:id="isAdminCheck" checkedColor="#007b68" text="Is Admin?" textFill="WHITE" unCheckedColor="#5d5c67">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets right="172.0" top="15.0" />
                </VBox.margin>
                <font>
                   <Font size="14.0" />
                </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="removeUserCheck" checkedColor="#007b68" text="Remove User?" textFill="WHITE" unCheckedColor="#5d5c67">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="145.0" top="10.0" />
+               </VBox.margin>
             </JFXCheckBox>
             <HBox prefHeight="80.0" prefWidth="258.0" spacing="10.0">
                <children>
@@ -79,7 +87,7 @@
                         <Font name="Roboto Regular" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="55.0" top="110.0" />
+                        <Insets left="55.0" top="75.0" />
                      </HBox.margin>
                   </JFXButton>
                   <JFXButton fx:id="closeButton" prefHeight="32.0" prefWidth="70.0" ripplerFill="#5bddc7" style="-fx-border-color: #007b68; -fx-border-radius: 5;" text="Close" textFill="WHITE">
@@ -87,7 +95,7 @@
                         <Font name="Roboto Regular" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets top="110.0" />
+                        <Insets top="75.0" />
                      </HBox.margin>
                   </JFXButton>
                </children>

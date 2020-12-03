@@ -1,5 +1,6 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
+import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -8,7 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +39,10 @@ public class DatabaseViewController implements Initializable {
     //@Autowired
     //Navigation navigation;
 
-    @FXML
-    JFXTextField endpointTextField, portTextField, dbNameTextField, dbUsernameTextField;
-    @FXML
-    JFXPasswordField dbPasswordField;
-    @FXML
-    JFXButton closeButton;
-    @FXML
-    AnchorPane pane;
+    @FXML JFXTextField endpointTextField, portTextField, dbNameTextField, dbUsernameTextField;
+    @FXML JFXPasswordField dbPasswordField;
+    @FXML JFXButton closeButton;
+    @FXML AnchorPane pane;
 
     public DatabaseViewController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -52,12 +51,18 @@ public class DatabaseViewController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.stage = new Stage();
-        stage.setScene(new Scene(pane));
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        Scene scene = new Scene(pane);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        ResizeHelper.addResizeListener(stage);
 
         closeButton.setOnAction(e -> {
             Stage stage = (Stage)closeButton.getScene().getWindow();
             stage.close();
         });
+
         /*String endpoint = env.getProperty("spring.datasource.url");
 
         endpointTextField.setText(endpoint);

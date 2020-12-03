@@ -28,14 +28,10 @@ public class LoginController implements Initializable {
     @Autowired
     private UserRepo userRepo;
 
-    @FXML
-    private JFXTextField usernameField;
-    @FXML
-    private JFXPasswordField passwordField;
-    @FXML
-    private JFXButton loginButton, addNewUserButton, dbButton, minimizeButton, exitButton;
-    @FXML
-    private Label loginStatus;
+    @FXML private JFXTextField usernameField;
+    @FXML private JFXPasswordField passwordField;
+    @FXML private JFXButton loginButton, addNewUserButton, dbButton, minimizeButton, exitButton;
+    @FXML private Label loginStatus;
 
     public LoginController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
