@@ -1,5 +1,8 @@
 package cis.ddbogdanov.covidtrackr;
 
+import cis.ddbogdanov.covidtrackr.controller.AddUserController;
+import cis.ddbogdanov.covidtrackr.controller.DatabaseViewController;
+import cis.ddbogdanov.covidtrackr.controller.LoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package cis.ddbogdanov.covidtrackr;
+package cis.ddbogdanov.covidtrackr.application;
 
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationEvent;

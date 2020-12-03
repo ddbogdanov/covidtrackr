@@ -1,5 +1,6 @@
-package cis.ddbogdanov.covidtrackr;
+package cis.ddbogdanov.covidtrackr.application;
 
+import cis.ddbogdanov.covidtrackr.CovidTrackrApplication;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

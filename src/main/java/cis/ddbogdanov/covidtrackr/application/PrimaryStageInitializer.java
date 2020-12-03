@@ -1,7 +1,9 @@
-package cis.ddbogdanov.covidtrackr;
+package cis.ddbogdanov.covidtrackr.application;
 
+import cis.ddbogdanov.covidtrackr.controller.LoginController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -20,8 +22,12 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.stage;
-        Scene scene = new Scene(fxWeaver.loadView(LoginController.class), 400, 800);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.setTitle("COVID - Trackr");
+        Scene scene = new Scene(fxWeaver.loadView(LoginController.class), 800, 500);
         stage.setScene(scene);
+        ResizeHelper.addResizeListener(stage);
         stage.show();
     }
 }

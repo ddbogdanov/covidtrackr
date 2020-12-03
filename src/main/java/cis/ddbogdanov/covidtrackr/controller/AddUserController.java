@@ -1,4 +1,4 @@
-package cis.ddbogdanov.covidtrackr;
+package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
