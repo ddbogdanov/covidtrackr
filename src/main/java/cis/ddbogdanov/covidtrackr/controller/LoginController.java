@@ -68,6 +68,8 @@ public class LoginController implements Initializable {
                 loginStatus.setTextFill(Color.web("#FFFFFF"));
                 loginStatus.setVisible(true);
                 loginStatus.setText("Login Successful!");
+                fxWeaver.loadController(HomeController.class).show();
+                loginButton.getScene().getWindow().hide();
                 if(userRepo.findByUsername(usernameField.getText()).get(0).getIsAdmin()) {
                     System.out.println("User is an admin");
                 }

@@ -24,7 +24,7 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
         Stage stage = event.stage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
-        stage.setTitle("COVID - Trackr");
+        stage.setTitle("COVID Trackr - Login");
         Scene scene = new Scene(fxWeaver.loadView(LoginController.class), 800, 500);
         stage.setScene(scene);
         ResizeHelper.addResizeListener(stage);

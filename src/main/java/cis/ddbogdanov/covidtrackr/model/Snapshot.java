@@ -17,8 +17,8 @@ public class Snapshot {
     @Column(name="id")
     private UUID id;
     @Type(type="org.hibernate.type.UUIDCharType")
-    @Column(name="id")
-    private UUID userid;
+    @Column(name="userid")
+    private UUID userId;
     @Column(name="countryname")
     private String countryName;
     @Column(name="date")
@@ -33,9 +33,9 @@ public class Snapshot {
     public Snapshot() {
 
     }
-    public Snapshot(UUID id, UUID userid, String countryName, String date, int totalCases, int totalDeaths, int newCases) {
+    public Snapshot(UUID id, UUID userId, String countryName, String date, int totalCases, int totalDeaths, int newCases) {
         this.id = id;
-        this.userid = id;
+        this.userId = userId;
         this.countryName = countryName;
         this.date = date;
         this.totalCases = totalCases;
@@ -46,8 +46,8 @@ public class Snapshot {
     public void setId(UUID id) {
         this.id = id;
     }
-    public void setUserid(UUID userid) {
-        this.userid = userid;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
     public void setCountryName(String countryName) {
         this.countryName = countryName;
@@ -68,8 +68,8 @@ public class Snapshot {
     public UUID getId() {
         return id;
     }
-    public UUID getUserid() {
-        return userid;
+    public UUID getUserId() {
+        return userId;
     }
     public String getCountryName() {
         return countryName;
@@ -88,10 +88,10 @@ public class Snapshot {
     }
 
     public Snapshot getObject() {
-        return new Snapshot(this.id, this.userid, this.countryName, this.date, this.totalCases, this.totalDeaths, this.newCases);
+        return new Snapshot(this.id, this.userId, this.countryName, this.date, this.totalCases, this.totalDeaths, this.newCases);
     }
     @Override
     public String toString() {
-        return id.toString() + " " + userid.toString() + " " + countryName + " " + date + " " + totalCases + " " + totalDeaths + " " + newCases;
+        return id.toString() + " " + userId.toString() + " " + countryName + " " + date + " " + totalCases + " " + totalDeaths + " " + newCases;
     }
 }
