@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -27,6 +28,7 @@ public class HomeController implements Initializable {
 
     @FXML AnchorPane pane;
     @FXML JFXButton minimizeButton, maximizeButton, exitButton, homeTab, snapshotTab, settingsTab;
+    @FXML BorderPane mainView;
 
     public HomeController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -40,12 +42,15 @@ public class HomeController implements Initializable {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         ResizeHelper.addResizeListener(stage);
+
         homeTab.setStyle(ACTIVE_BUTTON);
+        mainView.setCenter(fxWeaver.loadView(HomeSceneController.class));
 
         homeTab.setOnAction(e -> {
             homeTab.setStyle(ACTIVE_BUTTON);
             snapshotTab.setStyle(INACTIVE_BUTTON);
             settingsTab.setStyle(INACTIVE_BUTTON);
+            mainView.setCenter(fxWeaver.loadView(HomeSceneController.class));
         });
         snapshotTab.setOnAction(e -> {
             homeTab.setStyle(INACTIVE_BUTTON);
