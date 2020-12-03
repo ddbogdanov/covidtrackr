@@ -8,9 +8,13 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +23,17 @@ import java.util.ResourceBundle;
 import java.util.UUID;
 
 @Component
+@FxmlView("/AddUserController.fxml")
 public class AddUserController implements Initializable {
+
+    private FxWeaver fxWeaver;
+    private Stage stage;
 
     @Autowired
     private UserRepo userRepo;
 
+    @FXML
+    AnchorPane pane;
     @FXML
     JFXButton submitButton, closeButton;
     @FXML
@@ -35,8 +45,15 @@ public class AddUserController implements Initializable {
     @FXML
     Label passMatchField;
 
-    @Override
+    public AddUserController(FxWeaver fxWeaver) {
+        this.fxWeaver = fxWeaver;
+    }
+
+    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.stage = new Stage();
+        stage.setScene(new Scene(pane));
+
         passMatchField.setVisible(false);
 
         submitButton.setOnAction(e -> {
@@ -64,6 +81,9 @@ public class AddUserController implements Initializable {
             System.out.println("username does not exist in database");
         }
 
+    }
+    public void show() {
+        stage.show();
     }
 }
 

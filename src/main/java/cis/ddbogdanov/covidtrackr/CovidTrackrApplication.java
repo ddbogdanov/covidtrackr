@@ -7,35 +7,36 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.spring.SpringFxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class CovidTrackrApplication extends Application {
+public class CovidTrackrApplication {
 
-    @Autowired
-    private Navigation navigation;
     @Autowired
     ApplicationContext springContext;
 
     //private Parent root;
     private double xOffset, yOffset;
 
-    @Override
+    /*@Override
     public void init() throws Exception {
-        /*springContext = SpringApplication.run(CovidTrackrApplication.class);
+        springContext = SpringApplication.run(CovidTrackrApplication.class);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginController.fxml"));
         loader.setControllerFactory(springContext::getBean);
-        root = loader.load();*/
+        root = loader.load();
         SpringApplication.run(getClass()).getAutowireCapableBeanFactory().autowireBean(this);
     }
     @Override
     public void start(Stage primaryStage) {
-        /*root.setOnMousePressed(pressEvent -> {
+        root.setOnMousePressed(pressEvent -> {
             xOffset = pressEvent.getSceneX();
             yOffset = pressEvent.getSceneY();
         });
@@ -48,7 +49,7 @@ public class CovidTrackrApplication extends Application {
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.show();*/
+        primaryStage.show();
 
         primaryStage.setTitle("COVID Trackr");
         primaryStage.setResizable(false);
@@ -68,13 +69,19 @@ public class CovidTrackrApplication extends Application {
     }
     @Override
     public void stop() {
-        SpringApplication.exit(springContext);
-        Platform.exit();
-    }
+        //SpringApplication.exit(springContext);
+        //Platform.exit();
+    }*/
 
     public static void main(String[] args) {
         //launch(CovidTrackrApplication.class, args);
-        launch(args);
+        //launch(args);
+        Application.launch(SpringbootJavaFxApplication.class, args);
+    }
+
+    @Bean
+    public FxWeaver fxWeaver(ConfigurableApplicationContext springContext) {
+        return new SpringFxWeaver(springContext);
     }
 
 }

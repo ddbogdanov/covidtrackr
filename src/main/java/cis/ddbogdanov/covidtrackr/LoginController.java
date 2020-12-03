@@ -15,7 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +26,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
+@FxmlView("/LoginController.fxml")
 public class LoginController implements Initializable {
 
-    @Autowired
-    private Navigation navigation;
+    private final FxWeaver fxWeaver;
+    private Stage stage;
 
     @Autowired
     private UserRepo userRepo;
@@ -40,9 +44,11 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginStatus;
 
-    private double xOffset, yOffset;
+    public LoginController(FxWeaver fxWeaver) {
+        this.fxWeaver = fxWeaver;
+    }
 
-    @Override
+    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginStatus.setVisible(false);
 
@@ -64,6 +70,7 @@ public class LoginController implements Initializable {
             Platform.exit();
         });
     }
+
 
     private void login() {
         try {
@@ -89,14 +96,16 @@ public class LoginController implements Initializable {
             loginStatus.setText("This username may not exist");
         }
     }
+
     private void showDbInfo() {
-        Stage dbInfoStage = new Stage();
+        fxWeaver.loadController(DatabaseViewController.class).show();
+        /*Stage dbInfoStage = new Stage();
         dbInfoStage.initOwner(dbButton.getScene().getWindow());
         dbInfoStage.initModality(Modality.WINDOW_MODAL);
         dbInfoStage.initStyle(StageStyle.TRANSPARENT);
         navigation.setStage(dbInfoStage);
         navigation.showDbInfoView(300, 400);
-        Parent root = navigation.getRoot(); //TODO: Add window dragging into seperate class
+        Parent root = navigation.getRoot();
         root.setOnMousePressed(pressEvent -> {
             xOffset = pressEvent.getSceneX();
             yOffset = pressEvent.getSceneY();
@@ -105,7 +114,7 @@ public class LoginController implements Initializable {
             dbInfoStage.setX(dragEvent.getScreenX() - xOffset);
             dbInfoStage.setY(dragEvent.getScreenY() - yOffset);
         });
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/databaseInfo.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DatabaseViewController.fxml"));
         Scene databaseScene;
 
         try {
@@ -125,14 +134,15 @@ public class LoginController implements Initializable {
         databaseStage.showAndWait();*/
     }
     private void addUser() {
-        Stage newUserStage = new Stage();
+        fxWeaver.loadController(AddUserController.class).show();
+        /*Stage newUserStage = new Stage();
         newUserStage.initOwner(addNewUserButton.getScene().getWindow());
         newUserStage.initModality(Modality.WINDOW_MODAL);
         newUserStage.initStyle(StageStyle.TRANSPARENT);
         navigation.setStage(newUserStage);
-        navigation.showAddUserView(300, 400);
+        //navigation.showAddUserView(300, 400);
 
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/addNewUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddUserController.fxml"));
         Scene newUserScene;
 
         try {
@@ -150,5 +160,8 @@ public class LoginController implements Initializable {
         newUserStage.initStyle(StageStyle.TRANSPARENT);
         newUserStage.setScene(newUserScene);
         newUserStage.showAndWait();*/
+    }
+    public void show() {
+        stage.show();
     }
 }
