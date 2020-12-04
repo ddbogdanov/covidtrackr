@@ -2,17 +2,13 @@
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
 }
-
 .jfx-hamburger-icon StackPane {
     -fx-background-color: WHITE;
 }
-
 .separator *.line {
     -fx-border-style: solid;
     -fx-border-color: #5D5C67;
 }
-
-
 .jfx-combo-box {
     -fx-text-inner-color: WHITE;
     -fx-prompt-text-fill: WHITE;
@@ -20,13 +16,25 @@
 .jfx-combo-box .cell {
     -fx-text-fill: WHITE;
 }
-
 .jfx-date-picker .text-field {
     -fx-pompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
 }
-
 .jfx-text-area {
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
 }
+
+.data1.chart-pie {-fx-pie-color: #F07A26}
+.data0.chart-pie {-fx-pie-color: #14056B}
+.data3.chart-pie {-fx-pie-color: #1BB812}
+.chart-pie-label-line {
+    -fx-stroke: #5D5C67;
+    -fx-fill: WHITE;
+}
+.chart-pie-label {
+    -fx-fill: WHITE;
+    -fx-font-size: 10px;
+    -fx-font-family: Roboto;
+}
+

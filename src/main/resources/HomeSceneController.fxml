@@ -1,15 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="1090.0" style="-fx-background-color: #33333d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cis.ddbogdanov.covidtrackr.controller.HomeSceneController">
+<AnchorPane fx:id="pane" prefHeight="547.0" prefWidth="1090.0" style="-fx-background-color: #33333d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cis.ddbogdanov.covidtrackr.controller.HomeSceneController">
    <children>
-      <Label layoutX="484.0" layoutY="107.0" text="HomeSceneController!" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="1090.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label text="Total World Outlook" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Regular" size="34.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0" stylesheets="@static/MainCss.css" />
+         </children>
+      </VBox>
+      <HBox layoutY="70.0" prefHeight="477.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="547.0" prefWidth="363.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="BASELINE_CENTER" layoutX="132.0" layoutY="19.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="48.0" text="Date" textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="dateLabel" alignment="CENTER" text="12/4/2020" textFill="#5d5c67" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="48.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="363.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="BASELINE_CENTER" layoutX="139.0" layoutY="24.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="109.0" text="Total Cases" textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalCasesLabel" alignment="CENTER" text="1,000,000" textFill="#5d5c67" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="48.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <AnchorPane prefHeight="547.0" prefWidth="364.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <PieChart fx:id="pieChart" layoutX="-68.0" layoutY="39.0" prefHeight="364.0" prefWidth="364.0" stylesheets="@static/MainCss.css" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <JFXButton fx:id="saveSnapshotButton" layoutX="109.0" layoutY="418.0" prefHeight="32.0" prefWidth="147.0" ripplerFill="#5bddc7" style="-fx-background-color: #007b68;" text="Save This Snapshot" textFill="WHITE" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0">
+                     <font>
+                        <Font name="Roboto Regular" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <Label fx:id="saveStatus" layoutX="169.0" layoutY="455.0" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0">
+                     <font>
+                        <Font name="Roboto Regular" size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <VBox alignment="CENTER" prefHeight="547.0" prefWidth="363.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="BASELINE_CENTER" layoutX="142.0" layoutY="36.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Total Deaths" textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalDeathsLabel" alignment="CENTER" text="200,000" textFill="#5d5c67" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="48.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="363.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="BASELINE_CENTER" layoutX="47.0" layoutY="24.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="96.0" text="Recovered" textFill="WHITE" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="recoveredLabel" alignment="CENTER" text="200,000" textFill="#5d5c67" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Roboto Regular" size="48.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

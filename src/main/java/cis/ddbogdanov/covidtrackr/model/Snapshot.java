@@ -27,20 +27,20 @@ public class Snapshot {
     private int totalCases;
     @Column(name="totaldeaths")
     private int totalDeaths;
-    @Column(name="newcases")
-    private int newCases;
+    @Column(name="recovered")
+    private int recovered;
 
     public Snapshot() {
 
     }
-    public Snapshot(UUID id, UUID userId, String countryName, String date, int totalCases, int totalDeaths, int newCases) {
+    public Snapshot(UUID id, UUID userId, String countryName, String date, int totalCases, int totalDeaths, int recovered) {
         this.id = id;
         this.userId = userId;
         this.countryName = countryName;
         this.date = date;
         this.totalCases = totalCases;
         this.totalDeaths = totalDeaths;
-        this.newCases = newCases;
+        this.recovered = recovered;
     }
 
     public void setId(UUID id) {
@@ -61,8 +61,8 @@ public class Snapshot {
     public void setTotalDeaths(int totalDeaths) {
         this.totalDeaths = totalDeaths;
     }
-    public void setNewCases(int newCases) {
-        this.newCases = newCases;
+    public void setRecovered(int newCases) {
+        this.recovered = newCases;
     }
 
     public UUID getId() {
@@ -83,15 +83,15 @@ public class Snapshot {
     public int getTotalDeaths() {
         return totalDeaths;
     }
-    public int getNewCases() {
-        return newCases;
+    public int getRecovered() {
+        return recovered;
     }
 
     public Snapshot getObject() {
-        return new Snapshot(this.id, this.userId, this.countryName, this.date, this.totalCases, this.totalDeaths, this.newCases);
+        return new Snapshot(this.id, this.userId, this.countryName, this.date, this.totalCases, this.totalDeaths, this.recovered);
     }
     @Override
     public String toString() {
-        return id.toString() + " " + userId.toString() + " " + countryName + " " + date + " " + totalCases + " " + totalDeaths + " " + newCases;
+        return id.toString() + " " + userId.toString() + " " + countryName + " " + date + " " + totalCases + " " + totalDeaths + " " + recovered;
     }
 }

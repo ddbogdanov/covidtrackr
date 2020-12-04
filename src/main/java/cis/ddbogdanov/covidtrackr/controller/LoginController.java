@@ -1,5 +1,6 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
+import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 @Component
 @FxmlView("/LoginController.fxml")
@@ -24,6 +26,7 @@ public class LoginController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private Stage stage;
+    private static User user;
 
     @Autowired
     private UserRepo userRepo;
@@ -63,13 +66,23 @@ public class LoginController implements Initializable {
 
 
     private void login() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        UUID userId;
+        boolean isAdmin;
         try {
-            if (userRepo.findByUsername(usernameField.getText()).get(0).getPassword().equals(passwordField.getText())) {
+            if (userRepo.findByUsername(username).get(0).getPassword().equals(password)) {
+
+                userId = userRepo.findByUsername(username).get(0).getId();
+                isAdmin = userRepo.findByUsername(username).get(0).getIsAdmin();
+                user = new User(userId, username, password, isAdmin);
+
                 loginStatus.setTextFill(Color.web("#FFFFFF"));
                 loginStatus.setVisible(true);
                 loginStatus.setText("Login Successful!");
                 fxWeaver.loadController(HomeController.class).show();
                 loginButton.getScene().getWindow().hide();
+
                 if(userRepo.findByUsername(usernameField.getText()).get(0).getIsAdmin()) {
                     System.out.println("User is an admin");
                 }
@@ -155,5 +168,8 @@ public class LoginController implements Initializable {
     }
     public void show() {
         stage.show();
+    }
+    public static User getUser() {
+        return user;
     }
 }

@@ -4,10 +4,13 @@ import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -43,6 +46,8 @@ public class HomeController implements Initializable {
         stage.setScene(scene);
         ResizeHelper.addResizeListener(stage);
 
+        mainView.setMinSize(1104, 553);
+        mainView.setMaxSize(1920, 1080);
         homeTab.setStyle(ACTIVE_BUTTON);
         mainView.setCenter(fxWeaver.loadView(HomeSceneController.class));
 
