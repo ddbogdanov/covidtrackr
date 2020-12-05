@@ -10,8 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-/** Lots of help from here:
+/**
+ * Lots of help from here:
  * https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage
+ *
+ * Resize listener allows stages to be resized by dragging and moved around on screen
+ *
+ * {stage}.setResizeable(false); disables resizing ability
  */
 
 public class ResizeHelper {

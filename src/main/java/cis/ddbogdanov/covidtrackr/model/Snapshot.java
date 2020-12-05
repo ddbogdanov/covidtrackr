@@ -43,28 +43,6 @@ public class Snapshot {
         this.recovered = recovered;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
-    public void setTotalCases(int totalCases) {
-        this.totalCases = totalCases;
-    }
-    public void setTotalDeaths(int totalDeaths) {
-        this.totalDeaths = totalDeaths;
-    }
-    public void setRecovered(int newCases) {
-        this.recovered = newCases;
-    }
-
     public UUID getId() {
         return id;
     }
@@ -87,9 +65,6 @@ public class Snapshot {
         return recovered;
     }
 
-    public Snapshot getObject() {
-        return new Snapshot(this.id, this.userId, this.countryName, this.date, this.totalCases, this.totalDeaths, this.recovered);
-    }
     @Override
     public String toString() {
         return "Date: " + this.date + "; Country: " + countryName;

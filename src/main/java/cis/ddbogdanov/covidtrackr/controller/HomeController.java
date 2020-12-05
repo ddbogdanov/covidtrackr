@@ -1,7 +1,6 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
-import cis.ddbogdanov.covidtrackr.application.SpringbootJavaFxApplication;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

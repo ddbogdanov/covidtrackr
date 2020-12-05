@@ -80,10 +80,6 @@ public class SnapshotSceneController implements Initializable {
         });
     }
 
-    public void show() {
-        stage.show();
-    }
-
     private void clearTextFields() {
         countryNameTextField.clear();
         dateTextField.clear();
@@ -92,22 +88,32 @@ public class SnapshotSceneController implements Initializable {
         recoveredTextField.clear();
     }
     private void updateSnapshot() {
-        Snapshot updatedSnapshot = new Snapshot(
-                listView.getSelectionModel().getSelectedItem().getId(),
-                listView.getSelectionModel().getSelectedItem().getUserId(),
-                countryNameTextField.getText(),
-                dateTextField.getText(),
-                Integer.parseInt(totalCasesTextField.getText()),
-                Integer.parseInt(totalDeathsTextField.getText()),
-                Integer.parseInt(recoveredTextField.getText())
-        );
-        snapshotRepo.save(updatedSnapshot);
-        populateList();
+        try {
+            Snapshot updatedSnapshot = new Snapshot(
+                    listView.getSelectionModel().getSelectedItem().getId(),
+                    listView.getSelectionModel().getSelectedItem().getUserId(),
+                    countryNameTextField.getText(),
+                    dateTextField.getText(),
+                    Integer.parseInt(totalCasesTextField.getText()),
+                    Integer.parseInt(totalDeathsTextField.getText()),
+                    Integer.parseInt(recoveredTextField.getText())
+            );
+            snapshotRepo.save(updatedSnapshot);
+            populateList();
+        }
+        catch(NullPointerException ex) {
+            System.err.println("Fields are empty");
+        }
     }
     private void deleteSnapshot() {
-        Snapshot selected = listView.getSelectionModel().getSelectedItem();
-        snapshotRepo.deleteById(selected.getId());
-        populateList();
+        try {
+            Snapshot selected = listView.getSelectionModel().getSelectedItem();
+            snapshotRepo.deleteById(selected.getId());
+            populateList();
+        }
+        catch(NullPointerException ex) {
+            System.err.println("Nothing selected");
+        }
     }
     private void populateList() {
         ObservableList<Snapshot> snapshotList = FXCollections.observableArrayList();
@@ -118,16 +124,21 @@ public class SnapshotSceneController implements Initializable {
         listView.setItems(snapshotList);
     }
     private void loadSnapshot() {
-        Snapshot updatedSnapshot = new Snapshot(
-                listView.getSelectionModel().getSelectedItem().getId(),
-                listView.getSelectionModel().getSelectedItem().getUserId(),
-                countryNameTextField.getText(),
-                dateTextField.getText(),
-                Integer.parseInt(totalCasesTextField.getText()),
-                Integer.parseInt(totalDeathsTextField.getText()),
-                Integer.parseInt(recoveredTextField.getText())
-        );
-        HomeController.homeSceneController.loadOutlook(updatedSnapshot); //reference to currently loaded HomeSceneController
-        LoginController.homeController.showHomeView(); //reference to currently loaded HomeController
+        try {
+            Snapshot updatedSnapshot = new Snapshot(
+                    listView.getSelectionModel().getSelectedItem().getId(),
+                    listView.getSelectionModel().getSelectedItem().getUserId(),
+                    countryNameTextField.getText(),
+                    dateTextField.getText(),
+                    Integer.parseInt(totalCasesTextField.getText()),
+                    Integer.parseInt(totalDeathsTextField.getText()),
+                    Integer.parseInt(recoveredTextField.getText())
+            );
+            HomeController.homeSceneController.loadOutlook(updatedSnapshot); //reference to currently loaded HomeSceneController
+            LoginController.homeController.showHomeView(); //reference to currently loaded HomeController
+        }
+        catch(NullPointerException ex) {
+            System.err.println("Nothing selected");
+        }
     }
 }

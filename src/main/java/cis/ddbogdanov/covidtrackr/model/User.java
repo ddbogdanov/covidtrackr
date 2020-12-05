@@ -8,6 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
+/**
+ * Default users:
+ *  username: admin
+ *  password: password
+ *
+ *  username: notadmin
+ *  password: password
+ */
+
 @Entity
 @Table(name="usertable")
 public class User {
@@ -39,28 +48,11 @@ public class User {
     public UUID getId() {
         return id;
     }
-    public String getUsername() {
-        return username;
-    }
     public String getPassword() {
         return password;
     }
     public boolean getIsAdmin() { return isadmin; }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public void setIsAdmin(boolean isadmin) { this.isadmin = isadmin; }
-
-    public User getObject() {
-        return new User(this.id, this.username, this.password, this.isadmin);
-    }
     public String toString() {
         return this.id.toString() + " " + this.username + " " + this.password + " " + this.isadmin;
     }

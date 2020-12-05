@@ -36,7 +36,10 @@ import java.util.UUID;
 
 import static org.springframework.util.StringUtils.capitalize;
 
-//https://disease.sh/docs/#/COVID-19%3A%20Worldometers/get_v3_covid_19_countries__country_
+/**
+ * The following API is used - it does not provide an option to request data by date
+ *  - https://disease.sh/docs/#/COVID-19%3A%20Worldometers/get_v3_covid_19_countries__country_
+ */
 
 @Component
 @FxmlView("/HomeSceneController.fxml")
@@ -72,16 +75,13 @@ public class HomeSceneController implements Initializable {
         populatePieChart(snapshot);
 
         searchButton.setOnAction(e -> {
-            snapshot = fetchOutlook(capitalize(searchTextField.getText()));
-            setOutlookLabel(capitalize(searchTextField.getText()));
-            populatePieChart(snapshot);
+                snapshot = fetchOutlook(capitalize(searchTextField.getText()));
+                setOutlookLabel(capitalize(searchTextField.getText()));
+                populatePieChart(snapshot);
         });
         saveSnapshotButton.setOnAction(e -> {
             saveSnapshot(snapshot);
         });
-    }
-    public AnchorPane getScene() {
-        return pane;
     }
 
     private Snapshot fetchOutlook(String countryName) {
@@ -114,7 +114,7 @@ public class HomeSceneController implements Initializable {
             recoveredLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(recovered));
         }
         catch(Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Search field is empty");
         }
 
         if(countryName.equals("all") || countryName.equals("All")) {
@@ -172,5 +172,8 @@ public class HomeSceneController implements Initializable {
         recoveredLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getRecovered()));
         setOutlookLabel(snapshot.getCountryName());
         populatePieChart(snapshot);
+    }
+    public AnchorPane getScene() {
+        return pane;
     }
 }

@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -14,30 +13,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-//TODO: Add auto read into db form
+/**
+ * Access to this class from LoginController is currently disabled
+ */
 @Component
 @FxmlView("/DatabaseViewController.fxml")
-//@PropertySource("classpath:application.properties")
 public class DatabaseViewController implements Initializable {
 
     private Stage stage;
     private final FxWeaver fxWeaver;
-
-    //@Autowired
-    //private Environment env;
-    //@Autowired
-    //Navigation navigation;
 
     @FXML JFXTextField endpointTextField, portTextField, dbNameTextField, dbUsernameTextField;
     @FXML JFXPasswordField dbPasswordField;
@@ -62,12 +51,6 @@ public class DatabaseViewController implements Initializable {
             Stage stage = (Stage)closeButton.getScene().getWindow();
             stage.close();
         });
-
-        /*String endpoint = env.getProperty("spring.datasource.url");
-
-        endpointTextField.setText(endpoint);
-        endpointTextField.setDisable(true);
-        System.out.println(endpoint);*/
     }
 
     public void show() {

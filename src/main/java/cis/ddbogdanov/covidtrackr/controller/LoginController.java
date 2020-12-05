@@ -1,6 +1,5 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
-import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
@@ -9,12 +8,9 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +25,6 @@ import java.util.UUID;
 public class LoginController implements Initializable {
 
     private final FxWeaver fxWeaver;
-    private Stage stage;
     private static User user;
 
     public static HomeController homeController;
@@ -70,7 +65,6 @@ public class LoginController implements Initializable {
         });
     }
 
-
     private void login() {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -102,73 +96,11 @@ public class LoginController implements Initializable {
             loginStatus.setText("This username may not exist");
         }
     }
-
     private void showDbInfo() {
         fxWeaver.loadController(DatabaseViewController.class).show();
-        /*Stage dbInfoStage = new Stage();
-        dbInfoStage.initOwner(dbButton.getScene().getWindow());
-        dbInfoStage.initModality(Modality.WINDOW_MODAL);
-        dbInfoStage.initStyle(StageStyle.TRANSPARENT);
-        navigation.setStage(dbInfoStage);
-        navigation.showDbInfoView(300, 400);
-        Parent root = navigation.getRoot();
-        root.setOnMousePressed(pressEvent -> {
-            xOffset = pressEvent.getSceneX();
-            yOffset = pressEvent.getSceneY();
-        });
-        root.setOnMouseDragged(dragEvent -> {
-            dbInfoStage.setX(dragEvent.getScreenX() - xOffset);
-            dbInfoStage.setY(dragEvent.getScreenY() - yOffset);
-        });
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DatabaseViewController.fxml"));
-        Scene databaseScene;
-
-        try {
-            databaseScene = new Scene(loader.load());
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return;
-        }
-        databaseScene.setFill(Color.TRANSPARENT);
-
-        Stage databaseStage = new Stage();
-        databaseStage.initOwner(dbButton.getScene().getWindow());
-        databaseStage.initModality(Modality.WINDOW_MODAL);
-        databaseStage.initStyle(StageStyle.TRANSPARENT);
-        databaseStage.setScene(databaseScene);
-        databaseStage.showAndWait();*/
     }
     private void addUser() {
         fxWeaver.loadController(AddUserController.class).show();
-        /*Stage newUserStage = new Stage();
-        newUserStage.initOwner(addNewUserButton.getScene().getWindow());
-        newUserStage.initModality(Modality.WINDOW_MODAL);
-        newUserStage.initStyle(StageStyle.TRANSPARENT);
-        navigation.setStage(newUserStage);
-        //navigation.showAddUserView(300, 400);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddUserController.fxml"));
-        Scene newUserScene;
-
-        try {
-            newUserScene = new Scene(loader.load());
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return;
-        }
-        newUserScene.setFill(Color.TRANSPARENT);
-
-        Stage newUserStage = new Stage();
-        newUserStage.initOwner(addNewUserButton.getScene().getWindow());
-        newUserStage.initModality(Modality.WINDOW_MODAL);
-        newUserStage.initStyle(StageStyle.TRANSPARENT);
-        newUserStage.setScene(newUserScene);
-        newUserStage.showAndWait();*/
-    }
-    public void show() {
-        stage.show();
     }
     public static User getUser() {
         return user;
