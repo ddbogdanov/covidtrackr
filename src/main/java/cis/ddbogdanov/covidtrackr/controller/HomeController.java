@@ -1,6 +1,7 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
+import cis.ddbogdanov.covidtrackr.application.SpringbootJavaFxApplication;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,13 +25,14 @@ public class HomeController implements Initializable {
 
     private static final String ACTIVE_BUTTON ="-fx-background-color: #11AB97";
     private static final String INACTIVE_BUTTON ="-fx-background-color: #007B68";
-    public static Node homeScene, snapshotScene;
-    public static HomeSceneController homeSceneController;
     private final FxWeaver fxWeaver;
     private Stage stage;
 
+    public static Node homeScene, snapshotScene;
+    public static HomeSceneController homeSceneController;
+
     @FXML private AnchorPane pane;
-    @FXML private JFXButton minimizeButton, maximizeButton, exitButton, homeTab, snapshotTab, settingsTab;
+    @FXML private JFXButton minimizeButton, maximizeButton, exitButton, homeTab, snapshotTab, logoutButton;
     @FXML private BorderPane mainView;
 
     public HomeController(FxWeaver fxWeaver) {
@@ -44,14 +46,12 @@ public class HomeController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
-        settingsTab.setDisable(true);
+        ResizeHelper.addResizeListener(stage);
 
         //homeScene = fxWeaver.loadView(HomeSceneController.class);
         homeSceneController = fxWeaver.loadController(HomeSceneController.class);
         homeScene = homeSceneController.getScene();
         snapshotScene = fxWeaver.loadView(SnapshotSceneController.class);
-
-        ResizeHelper.addResizeListener(stage);
 
         mainView.setMinSize(1104, 553);
         mainView.setMaxSize(1920, 1080);
@@ -64,10 +64,8 @@ public class HomeController implements Initializable {
         snapshotTab.setOnAction(e -> {
             showSnapshotView();
         });
-        settingsTab.setOnAction(e -> {
-            homeTab.setStyle(INACTIVE_BUTTON);
-            snapshotTab.setStyle(INACTIVE_BUTTON);
-            settingsTab.setStyle(ACTIVE_BUTTON);
+        logoutButton.setOnAction(e -> {
+            logoutButton.getScene().getWindow().hide();
         });
 
         minimizeButton.setOnAction(e -> {
@@ -90,13 +88,13 @@ public class HomeController implements Initializable {
     public void showHomeView() {
         homeTab.setStyle(ACTIVE_BUTTON);
         snapshotTab.setStyle(INACTIVE_BUTTON);
-        settingsTab.setStyle(INACTIVE_BUTTON);
+        logoutButton.setStyle(INACTIVE_BUTTON);
         mainView.setCenter(homeScene);
     }
     private void showSnapshotView() {
         homeTab.setStyle(INACTIVE_BUTTON);
         snapshotTab.setStyle(ACTIVE_BUTTON);
-        settingsTab.setStyle(INACTIVE_BUTTON);
+        logoutButton.setStyle(INACTIVE_BUTTON);
         mainView.setCenter(snapshotScene);
     }
 }

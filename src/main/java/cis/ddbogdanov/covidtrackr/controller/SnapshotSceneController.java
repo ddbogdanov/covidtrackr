@@ -2,7 +2,6 @@ package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.model.Snapshot;
 import cis.ddbogdanov.covidtrackr.model.SnapshotRepo;
-import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -12,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -29,13 +29,11 @@ public class SnapshotSceneController implements Initializable {
     private Stage stage;
 
     @FXML private AnchorPane pane;
+    @FXML private VBox formVbox;
     @FXML private JFXTextField countryNameTextField, dateTextField, totalCasesTextField, totalDeathsTextField, recoveredTextField;
     @FXML private JFXButton submitButton, deleteButton, goButton, refreshButton;
     @FXML private JFXListView<Snapshot> listView;
 
-
-    @Autowired
-    private UserRepo userRepo;
     @Autowired
     private SnapshotRepo snapshotRepo;
 
@@ -49,6 +47,10 @@ public class SnapshotSceneController implements Initializable {
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         populateList();
+
+        if(!LoginController.getUser().getIsAdmin()) {
+            formVbox.setDisable(true);
+        }
 
         listView.getSelectionModel().selectedItemProperty().addListener((observableValue, snapshot, t1) -> {
             try {
@@ -125,7 +127,7 @@ public class SnapshotSceneController implements Initializable {
                 Integer.parseInt(totalDeathsTextField.getText()),
                 Integer.parseInt(recoveredTextField.getText())
         );
-        HomeController.homeSceneController.loadOutlook(updatedSnapshot);
-        LoginController.homeController.showHomeView();
+        HomeController.homeSceneController.loadOutlook(updatedSnapshot); //reference to currently loaded HomeSceneController
+        LoginController.homeController.showHomeView(); //reference to currently loaded HomeController
     }
 }

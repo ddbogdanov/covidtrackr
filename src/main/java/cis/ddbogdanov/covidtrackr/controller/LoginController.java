@@ -1,5 +1,6 @@
 package cis.ddbogdanov.covidtrackr.controller;
 
+import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import cis.ddbogdanov.covidtrackr.model.User;
 import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.jfoenix.controls.JFXButton;
@@ -8,9 +9,12 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,7 @@ public class LoginController implements Initializable {
     private final FxWeaver fxWeaver;
     private Stage stage;
     private static User user;
+
     public static HomeController homeController;
 
     @Autowired

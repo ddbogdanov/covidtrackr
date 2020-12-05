@@ -165,7 +165,6 @@ public class HomeSceneController implements Initializable {
             saveStatus.setVisible(true);
         }
     }
-
     public void loadOutlook(Snapshot snapshot) {
         dateLabel.setText(snapshot.getDate());
         totalCasesLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getTotalCases()));
@@ -173,6 +172,5 @@ public class HomeSceneController implements Initializable {
         recoveredLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getRecovered()));
         setOutlookLabel(snapshot.getCountryName());
         populatePieChart(snapshot);
-        System.out.println(recoveredLabel.getText());
     }
 }

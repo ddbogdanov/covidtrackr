@@ -22,7 +22,7 @@
             </JFXListView>
             <VBox alignment="TOP_CENTER" prefHeight="547.0" prefWidth="545.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="346.0" prefWidth="545.0">
+                  <VBox fx:id="formVbox" alignment="TOP_CENTER" prefHeight="346.0" prefWidth="545.0">
                      <children>
                         <Label text="Edit/Delete Snapshots" textFill="WHITE">
                            <font>
@@ -84,10 +84,10 @@
                                     <Font name="Roboto Regular" size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="325.0" right="10.0" />
+                                    <Insets left="318.0" right="10.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton fx:id="deleteButton" prefHeight="31.0" prefWidth="64.0" ripplerFill="#5bddc7" style="-fx-border-color: #007b68; -fx-border-radius: 5;" text="Delete" textFill="WHITE">
+                              <JFXButton fx:id="deleteButton" prefHeight="31.0" prefWidth="72.0" ripplerFill="#5bddc7" style="-fx-border-color: #007b68; -fx-border-radius: 5;" text="Delete" textFill="WHITE">
                                  <font>
                                     <Font name="Roboto Regular" size="14.0" />
                                  </font>
@@ -100,12 +100,16 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="346.0" prefWidth="545.0">
+                     <children>
                         <Separator prefWidth="200.0" stylesheets="@static/MainCss.css">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                         </Separator>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="505.0">
                            <children>
                               <Label text="View Selected Snapshot?" textFill="WHITE">
                                  <font>
@@ -128,7 +132,7 @@
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="505.0">
                            <children>
                               <JFXButton fx:id="refreshButton" prefHeight="30.0" prefWidth="72.0" ripplerFill="#5bddc7" style="-fx-border-color: #007b68; -fx-border-radius: 5;" text="Refresh" textFill="WHITE">
                                  <font>
