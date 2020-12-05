@@ -92,6 +92,6 @@ public class Snapshot {
     }
     @Override
     public String toString() {
-        return id.toString() + " " + userId.toString() + " " + countryName + " " + date + " " + totalCases + " " + totalDeaths + " " + recovered;
+        return "Date: " + this.date + "; Country: " + countryName;
     }
 }

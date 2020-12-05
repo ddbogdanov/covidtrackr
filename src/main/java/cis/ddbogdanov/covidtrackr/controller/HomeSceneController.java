@@ -2,7 +2,6 @@ package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.model.Snapshot;
 import cis.ddbogdanov.covidtrackr.model.SnapshotRepo;
-import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
@@ -49,15 +48,13 @@ public class HomeSceneController implements Initializable {
     private Stage stage;
 
     @Autowired
-    private UserRepo userRepo;
-    @Autowired
     private SnapshotRepo snapshotRepo;
 
-    @FXML AnchorPane pane;
-    @FXML PieChart pieChart;
-    @FXML Label dateLabel, totalCasesLabel, totalDeathsLabel, recoveredLabel, saveStatus, outlookLabel;
-    @FXML JFXButton saveSnapshotButton, searchButton;
-    @FXML JFXTextField searchTextField;
+    @FXML private AnchorPane pane;
+    @FXML public PieChart pieChart;
+    @FXML public Label dateLabel, totalCasesLabel, totalDeathsLabel, recoveredLabel, saveStatus, outlookLabel;
+    @FXML private JFXButton saveSnapshotButton, searchButton;
+    @FXML private JFXTextField searchTextField;
 
     public HomeSceneController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -76,15 +73,15 @@ public class HomeSceneController implements Initializable {
 
         searchButton.setOnAction(e -> {
             snapshot = fetchOutlook(capitalize(searchTextField.getText()));
-            outlookLabel.setText(setOutlookLabel(capitalize(searchTextField.getText())));
+            setOutlookLabel(capitalize(searchTextField.getText()));
             populatePieChart(snapshot);
         });
         saveSnapshotButton.setOnAction(e -> {
             saveSnapshot(snapshot);
         });
     }
-    public void show() {
-        stage.show();
+    public AnchorPane getScene() {
+        return pane;
     }
 
     private Snapshot fetchOutlook(String countryName) {
@@ -94,6 +91,10 @@ public class HomeSceneController implements Initializable {
         int totalCases = 0;
         int totalDeaths = 0;
         int recovered = 0;
+
+        if(countryName.equals("global") || countryName.equals("Global")) {
+            countryName = "all";
+        }
 
         try {
             final HttpUriRequest request = RequestBuilder
@@ -115,6 +116,11 @@ public class HomeSceneController implements Initializable {
         catch(Exception ex) {
             ex.printStackTrace();
         }
+
+        if(countryName.equals("all") || countryName.equals("All")) {
+            countryName = "Global";
+        }
+
         return new Snapshot(UUID.randomUUID(), LoginController.getUser().getId(), countryName, date, totalCases, totalDeaths, recovered);
     }
     private String buildURL(String countryName) {
@@ -125,12 +131,12 @@ public class HomeSceneController implements Initializable {
             return API_BASE_URL + "countries/" + countryName;
         }
     }
-    private String setOutlookLabel(String countryName) {
+    private void setOutlookLabel(String countryName) {
         if(countryName.equals("all") || countryName.equals("All") || countryName.equals("global") || countryName.equals("Global")) {
-            return "Global Outlook";
+            outlookLabel.setText("Global Outlook");
         }
         else {
-            return "Outlook for " + countryName;
+            outlookLabel.setText("Outlook for " + countryName);
         }
     }
     private void populatePieChart(Snapshot snapshot) {
@@ -158,5 +164,15 @@ public class HomeSceneController implements Initializable {
             saveStatus.setText("Something went wrong");
             saveStatus.setVisible(true);
         }
+    }
+
+    public void loadOutlook(Snapshot snapshot) {
+        dateLabel.setText(snapshot.getDate());
+        totalCasesLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getTotalCases()));
+        totalDeathsLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getTotalDeaths()));
+        recoveredLabel.setText(NumberFormat.getNumberInstance(Locale.US).format(snapshot.getRecovered()));
+        setOutlookLabel(snapshot.getCountryName());
+        populatePieChart(snapshot);
+        System.out.println(recoveredLabel.getText());
     }
 }

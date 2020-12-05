@@ -1,9 +1,9 @@
+.jfx-rippler {
+    -jfx-rippler-fill: #5bddc7;
+}
 .jfx-text-field, .jfx-password-field {
     -fx-prompt-text-fill: WHITE;
     -fx-text-fill: WHITE;
-}
-.jfx-hamburger-icon StackPane {
-    -fx-background-color: WHITE;
 }
 .separator *.line {
     -fx-border-style: solid;
@@ -38,3 +38,25 @@
     -fx-font-family: Roboto;
 }
 
+.list-view {
+    -fx-background-color: #3E3E4A;
+}
+.list-view .list-cell:hover {
+    -fx-background-color: #5D5C67;
+}
+.list-view .list-cell:selected {
+    -fx-background-color: #007B68;
+}
+.list-view .list-cell {
+    -fx-background-color: #3E3E4A;
+    -fx-text-fill: white;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: #494957;
+}
+.list-view .list-cell:odd:selected {
+     -fx-background-color: #007B68;
+ }
+.list-view .label {
+    -fx-text-fill: white;
+}

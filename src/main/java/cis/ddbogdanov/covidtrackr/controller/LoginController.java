@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
     private final FxWeaver fxWeaver;
     private Stage stage;
     private static User user;
+    public static HomeController homeController;
 
     @Autowired
     private UserRepo userRepo;
@@ -78,17 +79,12 @@ public class LoginController implements Initializable {
                 user = new User(userId, username, password, isAdmin);
 
                 loginStatus.setTextFill(Color.web("#FFFFFF"));
-                loginStatus.setVisible(true);
                 loginStatus.setText("Login Successful!");
-                fxWeaver.loadController(HomeController.class).show();
+                loginStatus.setVisible(true);
+                homeController = fxWeaver.loadController(HomeController.class);
+                homeController.show();
                 loginButton.getScene().getWindow().hide();
 
-                if(userRepo.findByUsername(usernameField.getText()).get(0).getIsAdmin()) {
-                    System.out.println("User is an admin");
-                }
-                else {
-                    System.out.println("User is not an admin");
-                }
             } else {
                 loginStatus.setTextFill(Color.web("#F73331"));
                 loginStatus.setVisible(true);
