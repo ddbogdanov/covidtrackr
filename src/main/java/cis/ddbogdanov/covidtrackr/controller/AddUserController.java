@@ -85,21 +85,28 @@ public class AddUserController implements Initializable {
         boolean shouldRemove = removeUserCheck.isSelected();
 
         if(!shouldRemove) {
-            try {
-                userRepo.findByUsername(username).get(0); //If returned array is empty the username does not exist in database - Exception is thrown
-                passMatchField.setTextFill(Color.web("#F73331"));
-                passMatchField.setText("This username already exists");
-                passMatchField.setVisible(true);
-            } catch (IndexOutOfBoundsException ex) { //Catch exception and add new user
-                if (password.equals(confirmPassword)) {
-                    User user = new User(UUID.randomUUID(), username, password, isAdmin);
-                    userRepo.save(user);
-                    passMatchField.setTextFill(Color.web("#FFFFFF"));
-                    passMatchField.setText("New user added!");
-                } else {
+            if(!username.isBlank() && !password.isBlank()) {
+                try {
+                    userRepo.findByUsername(username).get(0); //If returned array is empty the username does not exist in database - Exception is thrown
                     passMatchField.setTextFill(Color.web("#F73331"));
-                    passMatchField.setText("The passwords do not match");
+                    passMatchField.setText("This username already exists");
+                    passMatchField.setVisible(true);
+                } catch (IndexOutOfBoundsException ex) { //Catch exception and add new user
+                    if (password.equals(confirmPassword)) {
+                        User user = new User(UUID.randomUUID(), username, password, isAdmin);
+                        userRepo.save(user);
+                        passMatchField.setTextFill(Color.web("#FFFFFF"));
+                        passMatchField.setText("New user added!");
+                    } else {
+                        passMatchField.setTextFill(Color.web("#F73331"));
+                        passMatchField.setText("The passwords do not match");
+                    }
+                    passMatchField.setVisible(true);
                 }
+            }
+            else {
+                passMatchField.setTextFill(Color.web("#F73331"));
+                passMatchField.setText("Username and/or password cannot be blank!");
                 passMatchField.setVisible(true);
             }
         }

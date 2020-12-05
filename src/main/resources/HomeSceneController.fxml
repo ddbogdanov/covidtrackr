@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,26 +12,13 @@
 
 <AnchorPane fx:id="pane" prefHeight="547.0" prefWidth="1090.0" style="-fx-background-color: #33333d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cis.ddbogdanov.covidtrackr.controller.HomeSceneController">
    <children>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="70.0" prefWidth="1090.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Label text="Total World Outlook" textFill="WHITE">
-               <font>
-                  <Font name="Roboto Regular" size="34.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Separator prefWidth="200.0" stylesheets="@static/MainCss.css" />
-         </children>
-      </VBox>
-      <HBox layoutY="70.0" prefHeight="477.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+      <HBox prefHeight="447.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="547.0" prefWidth="363.0" HBox.hgrow="ALWAYS">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="BASELINE_CENTER" layoutX="132.0" layoutY="19.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="BASELINE_CENTER" layoutX="132.0" layoutY="-11.0" prefHeight="279.0" prefWidth="302.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label prefHeight="24.0" prefWidth="48.0" text="Date" textFill="WHITE" VBox.vgrow="ALWAYS">
                                  <font>
@@ -82,21 +69,63 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-            <AnchorPane prefHeight="547.0" prefWidth="364.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="547.0" prefWidth="547.0" HBox.hgrow="ALWAYS">
                <children>
-                  <PieChart fx:id="pieChart" layoutX="-68.0" layoutY="39.0" prefHeight="364.0" prefWidth="364.0" stylesheets="@static/MainCss.css" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <JFXButton fx:id="saveSnapshotButton" layoutX="109.0" layoutY="418.0" prefHeight="32.0" prefWidth="147.0" ripplerFill="#5bddc7" style="-fx-background-color: #007b68;" text="Save This Snapshot" textFill="WHITE" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="109.0">
+                  <Label fx:id="outlookLabel" text="Global Outlook" textFill="WHITE" VBox.vgrow="ALWAYS">
                      <font>
-                        <Font name="Roboto Regular" size="14.0" />
+                        <Font name="Roboto Regular" size="34.0" />
                      </font>
-                  </JFXButton>
-                  <Label fx:id="saveStatus" layoutX="169.0" layoutY="455.0" text="Login" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0">
-                     <font>
-                        <Font name="Roboto Regular" size="10.0" />
-                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
                   </Label>
+                  <PieChart fx:id="pieChart" prefHeight="364.0" prefWidth="364.0" stylesheets="@static/MainCss.css" VBox.vgrow="ALWAYS" />
+                  <AnchorPane prefHeight="140.0" prefWidth="486.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="138.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="486.0">
+                                 <children>
+                                    <JFXTextField fx:id="searchTextField" focusColor="#11ab97" labelFloat="true" prefHeight="28.0" prefWidth="500.0" promptText="Search by Country Name" style="-fx-background-color: #3e3e4a;" stylesheets="@static/MainCss.css" unFocusColor="#5d5c67">
+                                       <font>
+                                          <Font name="Roboto Regular" size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="60.0" right="10.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                    <JFXButton fx:id="searchButton" prefHeight="32.0" prefWidth="280.0" ripplerFill="#5bddc7" style="-fx-border-color: #007b68; -fx-border-radius: 5;" text="Search" textFill="WHITE">
+                                       <font>
+                                          <Font name="Roboto Regular" size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="40.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <JFXButton fx:id="saveSnapshotButton" prefHeight="32.0" prefWidth="147.0" ripplerFill="#5bddc7" style="-fx-background-color: #007b68;" text="Save This Snapshot" textFill="WHITE">
+                                 <font>
+                                    <Font name="Roboto Regular" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXButton>
+                              <Label fx:id="saveStatus" text="Login" textFill="WHITE">
+                                 <font>
+                                    <Font name="Roboto Regular" size="10.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="547.0" prefWidth="363.0" HBox.hgrow="ALWAYS">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -145,6 +174,9 @@
                      </children>
                   </AnchorPane>
                </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>

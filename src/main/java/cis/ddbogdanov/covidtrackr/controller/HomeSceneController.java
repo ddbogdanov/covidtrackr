@@ -6,6 +6,7 @@ import cis.ddbogdanov.covidtrackr.model.UserRepo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,15 +35,17 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
+import static org.springframework.util.StringUtils.capitalize;
+
 //https://disease.sh/docs/#/COVID-19%3A%20Worldometers/get_v3_covid_19_countries__country_
 
-//TODO: Add menu to change between global and individual country snapshots
-//TODO: Add Vbox as wrapper for pie chart, save button, and save status label
 @Component
 @FxmlView("/HomeSceneController.fxml")
 public class HomeSceneController implements Initializable {
 
     private final FxWeaver fxWeaver;
+    private static Snapshot snapshot;
+    private static final String API_BASE_URL = "https://disease.sh/v3/covid-19/";
     private Stage stage;
 
     @Autowired
@@ -52,8 +55,9 @@ public class HomeSceneController implements Initializable {
 
     @FXML AnchorPane pane;
     @FXML PieChart pieChart;
-    @FXML Label dateLabel, totalCasesLabel, totalDeathsLabel, recoveredLabel, saveStatus;
-    @FXML JFXButton saveSnapshotButton;
+    @FXML Label dateLabel, totalCasesLabel, totalDeathsLabel, recoveredLabel, saveStatus, outlookLabel;
+    @FXML JFXButton saveSnapshotButton, searchButton;
+    @FXML JFXTextField searchTextField;
 
     public HomeSceneController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -67,9 +71,14 @@ public class HomeSceneController implements Initializable {
         pieChart.setLegendVisible(false);
         saveStatus.setVisible(false);
 
-        Snapshot snapshot = fetchWorldOutlook();
+        snapshot = fetchOutlook("all");
         populatePieChart(snapshot);
 
+        searchButton.setOnAction(e -> {
+            snapshot = fetchOutlook(capitalize(searchTextField.getText()));
+            outlookLabel.setText(setOutlookLabel(capitalize(searchTextField.getText())));
+            populatePieChart(snapshot);
+        });
         saveSnapshotButton.setOnAction(e -> {
             saveSnapshot(snapshot);
         });
@@ -78,10 +87,9 @@ public class HomeSceneController implements Initializable {
         stage.show();
     }
 
-    private Snapshot fetchWorldOutlook() {
+    private Snapshot fetchOutlook(String countryName) {
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        String countryName = "Global";
         String date = localDate.format(formatter);
         int totalCases = 0;
         int totalDeaths = 0;
@@ -89,7 +97,7 @@ public class HomeSceneController implements Initializable {
 
         try {
             final HttpUriRequest request = RequestBuilder
-                    .get("https://disease.sh/v3/covid-19/all")
+                    .get(buildURL(countryName))
                     .build();
             final HttpResponse response = HttpClientBuilder.create().build().execute(request);
             final String jsonString = EntityUtils.toString(response.getEntity());
@@ -109,11 +117,28 @@ public class HomeSceneController implements Initializable {
         }
         return new Snapshot(UUID.randomUUID(), LoginController.getUser().getId(), countryName, date, totalCases, totalDeaths, recovered);
     }
+    private String buildURL(String countryName) {
+        if(countryName.equals("all") || countryName.equals("All") || countryName.equals("global") || countryName.equals("Global")) {
+            return API_BASE_URL + "all";
+        }
+        else {
+            return API_BASE_URL + "countries/" + countryName;
+        }
+    }
+    private String setOutlookLabel(String countryName) {
+        if(countryName.equals("all") || countryName.equals("All") || countryName.equals("global") || countryName.equals("Global")) {
+            return "Global Outlook";
+        }
+        else {
+            return "Outlook for " + countryName;
+        }
+    }
     private void populatePieChart(Snapshot snapshot) {
         int totalCases = snapshot.getTotalCases();
         int totalDeaths = snapshot.getTotalDeaths();
         int recovered = snapshot.getRecovered();
 
+        pieChart.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Total Cases", totalCases),
                 new PieChart.Data("Total Deaths", totalDeaths),
@@ -121,7 +146,6 @@ public class HomeSceneController implements Initializable {
         );
         pieChart.setData(pieChartData);
     }
-
     private void saveSnapshot(Snapshot snapshot) {
         try {
             snapshotRepo.save(snapshot);
