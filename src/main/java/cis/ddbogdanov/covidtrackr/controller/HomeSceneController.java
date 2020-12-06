@@ -144,7 +144,6 @@ public class HomeSceneController implements Initializable {
         int totalDeaths = snapshot.getTotalDeaths();
         int recovered = snapshot.getRecovered();
 
-        pieChart.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Total Cases", totalCases),
                 new PieChart.Data("Total Deaths", totalDeaths),

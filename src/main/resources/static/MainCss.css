@@ -25,9 +25,9 @@
     -fx-text-fill: WHITE;
 }
 
+.data0.chart-pie {-fx-pie-color: #0A45A3}
 .data1.chart-pie {-fx-pie-color: #F07A26}
-.data0.chart-pie {-fx-pie-color: #14056B}
-.data3.chart-pie {-fx-pie-color: #1BB812}
+.data2.chart-pie {-fx-pie-color: #2AA36A}
 .chart-pie-label-line {
     -fx-stroke: #5D5C67;
     -fx-fill: WHITE;
