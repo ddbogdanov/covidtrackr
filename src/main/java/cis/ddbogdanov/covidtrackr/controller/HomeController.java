@@ -47,7 +47,6 @@ public class HomeController implements Initializable {
         stage.setScene(scene);
         ResizeHelper.addResizeListener(stage);
 
-        //homeScene = fxWeaver.loadView(HomeSceneController.class);
         homeSceneController = fxWeaver.loadController(HomeSceneController.class);
         homeScene = homeSceneController.getScene();
         snapshotScene = fxWeaver.loadView(SnapshotSceneController.class);
