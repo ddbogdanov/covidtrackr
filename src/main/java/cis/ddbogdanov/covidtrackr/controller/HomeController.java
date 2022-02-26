@@ -2,13 +2,17 @@ package cis.ddbogdanov.covidtrackr.controller;
 
 import cis.ddbogdanov.covidtrackr.application.ResizeHelper;
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -33,6 +37,7 @@ public class HomeController implements Initializable {
     @FXML private AnchorPane pane;
     @FXML private JFXButton minimizeButton, maximizeButton, exitButton, homeTab, snapshotTab, logoutButton;
     @FXML private BorderPane mainView;
+    @FXML private FontAwesomeIconView maximizeIcon;
 
     public HomeController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
@@ -72,8 +77,14 @@ public class HomeController implements Initializable {
         });
         maximizeButton.setOnAction(e -> {
             Stage stage = (Stage)maximizeButton.getScene().getWindow();
-            stage.setMaximized(true);
-            //TODO: Add restore down functionality
+            if(stage.isMaximized()) {
+                ResizeHelper.disableWindowDrag(false);
+                stage.setMaximized(false);
+            }
+            else {
+                ResizeHelper.disableWindowDrag(true);
+                stage.setMaximized(true);
+            }
         });
         exitButton.setOnAction(e -> {
             Platform.exit();

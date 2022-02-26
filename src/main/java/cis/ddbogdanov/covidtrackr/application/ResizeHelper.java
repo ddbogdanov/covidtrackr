@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 public class ResizeHelper {
 
+    private static boolean disableDrag = false;
+
     public static void addResizeListener(Stage stage) {
         ResizeListener resizeListener = new ResizeListener(stage);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
@@ -32,6 +34,10 @@ public class ResizeHelper {
         for (Node child : children) {
             addListenerDeeply(child, resizeListener);
         }
+    }
+
+    public static void disableWindowDrag(boolean shouldDisable) {
+        disableDrag = shouldDisable;
     }
 
     private static void addListenerDeeply(Node node, EventHandler<MouseEvent> listener) {
@@ -142,20 +148,11 @@ public class ResizeHelper {
                         }
                     }
                 }
-
-                if (MouseEvent.MOUSE_PRESSED.equals(mouseEventType)) {
-                    startScreenX = mouseEvent.getScreenX();
-                    startScreenY = mouseEvent.getScreenY();
-                } else if (MouseEvent.MOUSE_DRAGGED.equals(mouseEventType)) {
-                    if (Cursor.DEFAULT.equals(cursorEvent)) {
-                        stage.setX(stage.getX() + mouseEvent.getScreenX() - startScreenX);
-                        startScreenX = mouseEvent.getScreenX();
-                        stage.setY(stage.getY() + mouseEvent.getScreenY() - startScreenY);
-                        startScreenY = mouseEvent.getScreenY();
-                    }
-                }
             }
-            else {
+            addDragListener(mouseEvent);
+        }
+        private void addDragListener(MouseEvent mouseEvent) {
+            if(!disableDrag) {
                 EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
 
                 if (MouseEvent.MOUSE_PRESSED.equals(mouseEventType)) {

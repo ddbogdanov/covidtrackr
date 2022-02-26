@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.jboss.jandex.Index;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -67,7 +70,6 @@ public class AddUserController implements Initializable {
                 isAdminCheck.setDisable(false);
             }
         });
-
         submitButton.setOnAction(e -> {
             submit();
         });
@@ -76,6 +78,7 @@ public class AddUserController implements Initializable {
             stage.close();
         });
     }
+
     private void submit() {
         String username = usernameTextField.getText();
         String password = userPasswordField.getText();
@@ -83,6 +86,9 @@ public class AddUserController implements Initializable {
         String fetchedPassword;
         boolean isAdmin = isAdminCheck.isSelected();
         boolean shouldRemove = removeUserCheck.isSelected();
+
+        Pbkdf2PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
 
         if(!shouldRemove) {
             if(!username.isBlank() && !password.isBlank()) {
@@ -93,7 +99,7 @@ public class AddUserController implements Initializable {
                     passMatchField.setVisible(true);
                 } catch (IndexOutOfBoundsException ex) { //Catch exception and add new user
                     if (password.equals(confirmPassword)) {
-                        User user = new User(UUID.randomUUID(), username, password, isAdmin);
+                        User user = new User(UUID.randomUUID(), username, hashedPassword, isAdmin);
                         userRepo.save(user);
                         passMatchField.setTextFill(Color.web("#FFFFFF"));
                         passMatchField.setText("New user added!");
@@ -113,7 +119,7 @@ public class AddUserController implements Initializable {
         else {
             try {
                 fetchedPassword = userRepo.findByUsername(username).get(0).getPassword();
-                if (password.equals(confirmPassword) && password.equals(fetchedPassword)) {
+                if (password.equals(confirmPassword) && passwordEncoder.matches(password, fetchedPassword)) {
                     userRepo.deleteByUsername(username);
                     passMatchField.setTextFill(Color.web("#FFFFFF"));
                     passMatchField.setText("User deleted!");

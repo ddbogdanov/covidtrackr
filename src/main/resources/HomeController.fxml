@@ -94,7 +94,7 @@
                         </JFXButton>
                         <JFXButton fx:id="maximizeButton" focusTraversable="false" layoutX="116.0" layoutY="28.0" ripplerFill="#5bddc7" text="" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="5.0">
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="WINDOW_MAXIMIZE" size="14" />
+                              <FontAwesomeIconView fx:id="maximizeIcon" fill="WHITE" glyphName="WINDOW_MAXIMIZE" size="14" />
                            </graphic>
                         </JFXButton>
                      </children>

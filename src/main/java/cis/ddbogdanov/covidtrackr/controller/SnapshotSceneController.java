@@ -121,7 +121,7 @@ public class SnapshotSceneController implements Initializable {
         if(snapshotRepo.count() != 0) {
             snapshotList.addAll(snapshotRepo.findAllByUserId(LoginController.getUser().getId()));
         }
-        listView.setItems(snapshotList);
+        listView.setItems(snapshotList.sorted());
     }
     private void loadSnapshot() {
         try {

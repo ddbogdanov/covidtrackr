@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -70,12 +71,16 @@ public class LoginController implements Initializable {
         String password = passwordField.getText();
         UUID userId;
         boolean isAdmin;
-        try {
-            if (userRepo.findByUsername(username).get(0).getPassword().equals(password)) {
 
+        Pbkdf2PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
+
+        try {
+            if(passwordEncoder.matches(password, userRepo.findByUsername(username).get(0).getPassword())) {
+
+                String hashedPassword = userRepo.findByUsername(username).get(0).getPassword();
                 userId = userRepo.findByUsername(username).get(0).getId();
                 isAdmin = userRepo.findByUsername(username).get(0).getIsAdmin();
-                user = new User(userId, username, password, isAdmin);
+                user = new User(userId, username, hashedPassword, isAdmin);
 
                 loginStatus.setTextFill(Color.web("#FFFFFF"));
                 loginStatus.setText("Login Successful!");
@@ -105,4 +110,5 @@ public class LoginController implements Initializable {
     public static User getUser() {
         return user;
     }
+
 }
